@@ -1,0 +1,31 @@
+syntax = "proto3"; 
+
+package robot; 
+
+import "proto/robot.proto"; 
+
+option optimize_for = CODE_SIZE; 
+option java_package = "com.cibers.robot"; 
+option java_outer_classname = "MyRobot"; 
+
+message FightRequest { //del 1 al 15 solo ocupan 2 bytes del 16 en adelante 4 se debe poner a los que van a viajar menos los opcionales 
+    robot.Robot opponent_one = 1;
+    robot.Robot opponent_two = 2;
+    // seconds
+    int32 duration = 3;  
+    // It means the fight will affect the player ranking or not 
+    bool is_ranked = 4; 
+    // It is the song of the fight 
+    bytes song = 5; 
+    robot.SCENARIO scenario = 6;  //type name unique code 
+}
+
+message FightResponse {
+    robot.Robot opponent1 = 1; 
+    robot.Robot opponent2 = 2; 
+    robot.Robot winner = 3; 
+}
+
+service RobotService {
+    rpc Fight (FightRequest) returns (FightResponse); 
+}

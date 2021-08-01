@@ -1,0 +1,30 @@
+syntax = "proto3"; 
+
+package robot; 
+
+message Robot {   
+    reserved 5, 6; 
+    reserved "laser", "agile"; //luego ya no se puede utilizar estos campos 
+    string id = 1; 
+    //custom unique name 
+    string name = 2; 
+    repeated string powers = 3; // laser , agile 
+    //It is the robot's speed and it reforced by their attacks or powers 
+    // deprecated and SHould use the attribute repeated powers 
+    int32 speed_level = 10 [deprecated = true]; //todavía se puede utilizar estos campso 
+
+    Helper helper = 11; 
+
+    //It is a robot helper who fights in hand to hand with its owner 
+    message Helper{
+        string id = 1; 
+        string name = 2; 
+    }
+}
+
+// It is the scenario where the fight will take place 
+enum SCENARIO {
+    CITY = 0; 
+    SPACE = 1; 
+    MALL = 2; 
+}
